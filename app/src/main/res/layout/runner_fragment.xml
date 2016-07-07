@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:keepScreenOn="true">
+
+    <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_alignParentStart="true"
+    android:layout_above="@+id/relativeLayout">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="20dp"
+            android:background="#d4d5d5"
+            android:elevation="2dp">
+
+            <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="5"
+            android:id="@+id/runneroppCredCounter"
+            android:rotation="180"
+            android:textSize="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignEnd="@+id/creditImage"
+            android:layout_alignStart="@+id/creditImage"
+            android:textAlignment="center"
+            android:layout_marginTop="20dp" />
+
+            <ImageView
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:rotation="180"
+            android:id="@+id/creditImage"
+            android:src="@drawable/credit_one"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/runneroppCredCounter" />
+
+            <ImageView
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:rotation="180"
+                android:id="@+id/tagImage"
+                android:src="@drawable/tag2"
+                android:layout_alignTop="@+id/creditImage"
+                android:layout_toEndOf="@+id/creditImage"
+                android:layout_marginStart="32dp" />
+
+            <ImageView
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:rotation="180"
+                android:id="@+id/linkImage"
+                android:src="@drawable/link2"
+                android:layout_marginEnd="30dp"
+                android:layout_alignTop="@+id/creditImage"
+                android:layout_toStartOf="@+id/creditImage" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:rotation="180"
+                android:id="@+id/runneroppTagCounter"
+                android:textAlignment="center"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="50dp"
+                android:layout_above="@+id/tagImage"
+                android:layout_alignStart="@+id/tagImage"
+                android:layout_alignEnd="@+id/tagImage" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:rotation="180"
+                android:id="@+id/runneroppLinkCounter"
+                android:textAlignment="center"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="50dp"
+                android:layout_above="@+id/linkImage"
+                android:layout_alignStart="@+id/linkImage"
+                android:layout_alignEnd="@+id/linkImage" />
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout"
+        android:gravity="center_horizontal"
+        android:layout_above="@+id/runnerclickTrack"
+        android:layout_alignParentEnd="true"
+        android:padding="5dp"
+        android:background="#ca4547"
+        android:elevation="2dp">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="-5"
+            android:id="@+id/runnersubFive"
+            android:layout_weight="1" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="-2"
+            android:id="@+id/runnersubTwo"
+            android:layout_weight="1" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="-1"
+            android:id="@+id/runnersubOne"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="90dp"
+            android:ems="2"
+            android:id="@+id/runnercreditCounter"
+            android:gravity="center"
+            android:text="5"
+            android:textSize="60dp"
+            android:elevation="2dp"
+            android:layout_gravity="center_vertical"
+            android:textColor="#EFEFEF"
+            android:elegantTextHeight="true"
+            android:layout_marginLeft="-20dp"
+            android:layout_marginRight="-20dp" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="+1"
+            android:id="@+id/runneraddOne"
+            android:layout_weight="1" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="+2"
+            android:id="@+id/runneraddTwo"
+            android:layout_weight="1" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="+5"
+            android:id="@+id/runneraddFive"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/linearLayout"
+        android:id="@+id/relativeLayout"
+        android:weightSum="1"
+        android:gravity="center_horizontal"
+        android:background="#cc6467"
+        android:padding="5dp"
+        android:elevation="3dp"
+        android:contextClickable="true">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/runnerLinkLayout"
+            android:layout_alignParentStart="true"
+            android:padding="5dp"
+            android:baselineAligned="false">
+
+            <Button
+                android:layout_width="30dp"
+                android:layout_height="60dp"
+                android:text="-"
+                android:id="@+id/runnersubLink" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:ems="1"
+                android:id="@+id/runnerLinkCounter"
+                android:gravity="center"
+                android:text="0"
+                android:textSize="40dp"
+                android:elevation="2dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:textColor="#EFEFEF" />
+
+            <Button
+                android:layout_width="30dp"
+                android:layout_height="60dp"
+                android:text="+"
+                android:id="@+id/runneraddLink" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/runnerTagLayout"
+            android:orientation="horizontal"
+            android:layout_alignParentEnd="true"
+            android:padding="5dp"
+            android:baselineAligned="true">
+
+            <Button
+                android:layout_width="30dp"
+                android:layout_height="60dp"
+                android:text="-"
+                android:id="@+id/runnersubTag" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:ems="1"
+                android:id="@+id/runnerTagCounter"
+                android:gravity="center"
+                android:text="0"
+                android:textSize="40dp"
+                android:elevation="2dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:textColor="#EFEFEF" />
+
+            <Button
+                android:layout_width="30dp"
+                android:layout_height="60dp"
+                android:text="+"
+                android:id="@+id/runneraddTag" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <com.jdtech.nettracker.ClickLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:id="@+id/runnerclickTrack"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:elevation="0dp">
+
+    </com.jdtech.nettracker.ClickLayout>
+</RelativeLayout>

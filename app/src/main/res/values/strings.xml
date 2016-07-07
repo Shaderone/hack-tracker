@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Hack Track</string>
+    <string name="addone">+1</string>
+    <string name="subtractone">-1</string>
+    <string name="addfive">+5</string>
+    <string name="subtractfive">-5</string>
+    <string name="action_settings">Settings</string>
+</resources>
