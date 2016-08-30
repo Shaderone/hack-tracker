@@ -1,9 +1,13 @@
 package com.jdtech.nettracker;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.TextView;
 
 /**
@@ -11,6 +15,8 @@ import android.widget.TextView;
  */
 public class CorpFragment extends AppCompatActivity implements View.OnClickListener {
 
+
+    // Initialize the buttons and other on-screen values
     Button subOne;
     Button subTwo;
     Button subFive;
@@ -35,6 +41,11 @@ public class CorpFragment extends AppCompatActivity implements View.OnClickListe
 
     int clickCount = 3;
 
+    Chronometer corpChrono;
+    Button corpStart;
+    Button corpEnd;
+    Boolean timerStarted;
+    long timeWhenStopped = 0;
 
     ClickLayout clickLayout;
 
@@ -43,6 +54,8 @@ public class CorpFragment extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.corp_fragment);
+
+        //Attach the variables to the corresponding id
 
         subOne = (Button)findViewById(R.id.subOne);
         subTwo = (Button)findViewById(R.id.subTwo);
@@ -61,6 +74,10 @@ public class CorpFragment extends AppCompatActivity implements View.OnClickListe
 
         oppCred = (TextView)findViewById(R.id.oppCredCounter);
         oppBP = (TextView)findViewById(R.id.oppBPCounter);
+
+        corpChrono = (Chronometer)findViewById(R.id.corpChrono);
+        corpStart = (Button)findViewById(R.id.corpStart);
+        corpEnd = (Button)findViewById(R.id.corpEnd);
 
         subOne.setOnClickListener(this);
         subTwo.setOnClickListener(this);
@@ -86,6 +103,10 @@ public class CorpFragment extends AppCompatActivity implements View.OnClickListe
         oppCred.setText(Integer.toString(credCounter));
         oppBP.setText(Integer.toString(badPubCounter));
 
+        corpStart.setOnClickListener(this);
+        corpEnd.setOnClickListener(this);
+        timerStarted = false;
+
 
         clickLayout = (ClickLayout)findViewById(R.id.clickTrack);
 
@@ -96,6 +117,8 @@ public class CorpFragment extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+
+        //Branching checks to handle button presses
         if (v == subOne) {
             if (credCounter > 0) {
                 credCounter--;
@@ -118,11 +141,11 @@ public class CorpFragment extends AppCompatActivity implements View.OnClickListe
 
         if (v == subFive) {
             if (credCounter > 0) {
-                if (credCounter <= 5) {
+                if (credCounter <= 4) {
                     credCounter = 0;
                 }
                 else {
-                    credCounter -= 5;
+                    credCounter -= 4;
             }
                 creditText.setText(Integer.toString(credCounter));
                 oppCred.setText(Integer.toString(credCounter));
@@ -139,7 +162,7 @@ public class CorpFragment extends AppCompatActivity implements View.OnClickListe
             oppCred.setText(Integer.toString(credCounter));
         }
         if (v == addFive) {
-            credCounter += 5;
+            credCounter += 4;
             creditText.setText(Integer.toString(credCounter));
             oppCred.setText(Integer.toString(credCounter));
         }
@@ -166,7 +189,63 @@ public class CorpFragment extends AppCompatActivity implements View.OnClickListe
             badPubText.setText(Integer.toString(badPubCounter));
             oppBP.setText(Integer.toString(badPubCounter));
         }
+        if (v == corpStart){
+            if (timerStarted) {
+                timeWhenStopped = corpChrono.getBase() - SystemClock.elapsedRealtime();
+                corpChrono.stop();
+                corpStart.setText("Start");
+                timerStarted = false;
+            }
+            else {
+                corpChrono.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
+                corpChrono.start();
+                corpStart.setText("Pause");
+                timerStarted = true;
+            }
+        }
+        if (v == corpEnd) {
+            timeWhenStopped = corpChrono.getBase() - SystemClock.elapsedRealtime();
+            corpChrono.stop();
+            corpStart.setText("Start");
+            timerStarted = false;
+            AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+            builder1.setMessage("Are you sure you want to end the game?");
+            builder1.setCancelable(true);
+
+            builder1.setPositiveButton(
+                    "Yes",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                            corpChrono.setBase(SystemClock.elapsedRealtime());
+                            timeWhenStopped = 0;
+                        }
+                    });
+
+            builder1.setNegativeButton(
+                    "No",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                            corpChrono.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
+                            corpChrono.start();
+                            corpStart.setText("Pause");
+                            timerStarted = true;
+                        }
+                    });
+
+            AlertDialog alert11 = builder1.create();
+            alert11.show();
+        }
 
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        timeWhenStopped = corpChrono.getBase() - SystemClock.elapsedRealtime();
+        corpChrono.stop();
+        corpStart.setText("Start");
+        timerStarted = false;
+    }
 }

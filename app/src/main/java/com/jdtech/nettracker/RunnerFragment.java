@@ -1,12 +1,16 @@
 package com.jdtech.nettracker;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ImageSpan;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -41,6 +45,11 @@ public class RunnerFragment extends AppCompatActivity implements View.OnClickLis
 
     int clickCount = 4;
 
+    Chronometer runnerChrono;
+    Button runnerStart;
+    Button runnerEnd;
+    Boolean timerStarted;
+    long timeWhenStopped = 0;
 
     ClickLayout clickLayout;
 
@@ -69,6 +78,10 @@ public class RunnerFragment extends AppCompatActivity implements View.OnClickLis
         oppLink = (TextView)findViewById(R.id.runneroppLinkCounter);
         oppTag = (TextView)findViewById(R.id.runneroppTagCounter);
 
+        runnerChrono = (Chronometer)findViewById(R.id.runnerChrono);
+        runnerStart = (Button)findViewById(R.id.runnerStart);
+        runnerEnd = (Button)findViewById(R.id.runnerEnd);
+        
         subOne.setOnClickListener(this);
         subTwo.setOnClickListener(this);
         subFive.setOnClickListener(this);
@@ -94,6 +107,10 @@ public class RunnerFragment extends AppCompatActivity implements View.OnClickLis
         oppTag.setText(Integer.toString(tagCounter));
         oppLink.setText(Integer.toString(linkCounter));
 
+        runnerStart.setOnClickListener(this);
+        runnerEnd.setOnClickListener(this);
+        timerStarted = false;
+        
         clickLayout = (ClickLayout)findViewById(R.id.runnerclickTrack);
 
         clickLayout.initialize(clickCount);
@@ -124,11 +141,11 @@ public class RunnerFragment extends AppCompatActivity implements View.OnClickLis
 
         if (v == subFive) {
             if (credCounter > 0) {
-                if (credCounter <= 5) {
+                if (credCounter <= 4) {
                     credCounter = 0;
                 }
                 else {
-                    credCounter -= 5;
+                    credCounter -= 4;
                 }
                 creditText.setText(Integer.toString(credCounter));
                 oppCred.setText(Integer.toString(credCounter));
@@ -145,7 +162,7 @@ public class RunnerFragment extends AppCompatActivity implements View.OnClickLis
             oppCred.setText(Integer.toString(credCounter));
         }
         if (v == addFive) {
-            credCounter += 5;
+            credCounter += 4;
             creditText.setText(Integer.toString(credCounter));
             oppCred.setText(Integer.toString(credCounter));
         }
@@ -174,6 +191,63 @@ public class RunnerFragment extends AppCompatActivity implements View.OnClickLis
             linkText.setText(Integer.toString(linkCounter));
             oppLink.setText(Integer.toString(linkCounter));
         }
+        if (v == runnerStart){
+            if (timerStarted) {
+                timeWhenStopped = runnerChrono.getBase() - SystemClock.elapsedRealtime();
+                runnerChrono.stop();
+                runnerStart.setText("Start");
+                timerStarted = false;
+            }
+            else {
+                runnerChrono.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
+                runnerChrono.start();
+                runnerStart.setText("Pause");
+                timerStarted = true;
+            }
+        }
+        if (v == runnerEnd) {
+            timeWhenStopped = runnerChrono.getBase() - SystemClock.elapsedRealtime();
+            runnerChrono.stop();
+            runnerStart.setText("Start");
+            timerStarted = false;
+            AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+            builder1.setMessage("Are you sure you want to end the game?");
+            builder1.setCancelable(true);
 
+            builder1.setPositiveButton(
+                    "Yes",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                            runnerChrono.setBase(SystemClock.elapsedRealtime());
+                            timeWhenStopped = 0;
+                        }
+                    });
+
+            builder1.setNegativeButton(
+                    "No",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                            runnerChrono.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
+                            runnerChrono.start();
+                            runnerStart.setText("Pause");
+                            timerStarted = true;
+                        }
+                    });
+
+            AlertDialog alert11 = builder1.create();
+            alert11.show();
+        }
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        timeWhenStopped = runnerChrono.getBase() - SystemClock.elapsedRealtime();
+        runnerChrono.stop();
+        runnerStart.setText("Start");
+        timerStarted = false;
     }
 }

@@ -14,9 +14,10 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="20dp"
+            android:paddingBottom="10dp"
             android:background="#d4d5d5"
-            android:elevation="2dp">
+            android:elevation="2dp"
+            android:id="@+id/relativeLayout3">
 
             <TextView
             android:layout_width="wrap_content"
@@ -30,7 +31,7 @@
             android:layout_alignEnd="@+id/creditImage"
             android:layout_alignStart="@+id/creditImage"
             android:textAlignment="center"
-            android:layout_marginTop="20dp" />
+            android:layout_marginTop="10dp" />
 
             <ImageView
             android:layout_width="90dp"
@@ -88,6 +89,46 @@
                 android:layout_alignEnd="@+id/linkImage" />
         </RelativeLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/relativeLayout3"
+            android:gravity="center_vertical|center_horizontal"
+            android:weightSum="1">
+
+
+            <Chronometer
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/runnerChrono"
+                android:textSize="40dp"
+                android:textIsSelectable="true"
+                android:textStyle="italic"
+                android:layout_alignTop="@+id/runnerEnd"
+                android:layout_toStartOf="@+id/runnerStart"
+                android:layout_weight="0.35"
+                android:text="00:00" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="START"
+                android:id="@+id/runnerStart"
+                android:layout_alignBottom="@+id/runnerChrono"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_vertical" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="END GAME"
+                android:id="@+id/runnerEnd"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/runnerStart" />
+
+        </LinearLayout>
+
 
     </RelativeLayout>
 
@@ -106,7 +147,7 @@
         <Button
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:text="-5"
+            android:text="-4"
             android:id="@+id/runnersubFive"
             android:layout_weight="1" />
 
@@ -137,8 +178,8 @@
             android:layout_gravity="center_vertical"
             android:textColor="#EFEFEF"
             android:elegantTextHeight="true"
-            android:layout_marginLeft="-20dp"
-            android:layout_marginRight="-20dp" />
+            android:layout_marginLeft="-30dp"
+            android:layout_marginRight="-30dp" />
 
         <Button
             style="?android:attr/buttonStyleSmall"
@@ -158,7 +199,7 @@
         <Button
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:text="+5"
+            android:text="+4"
             android:id="@+id/runneraddFive"
             android:layout_weight="1" />
     </LinearLayout>
