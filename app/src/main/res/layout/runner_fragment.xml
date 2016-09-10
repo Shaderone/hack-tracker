@@ -34,8 +34,8 @@
             android:layout_marginTop="10dp" />
 
             <ImageView
-            android:layout_width="90dp"
-            android:layout_height="90dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:rotation="180"
             android:id="@+id/creditImage"
             android:src="@drawable/credit_one"
@@ -43,8 +43,8 @@
                 android:layout_below="@+id/runneroppCredCounter" />
 
             <ImageView
-                android:layout_width="90dp"
-                android:layout_height="90dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:rotation="180"
                 android:id="@+id/tagImage"
                 android:src="@drawable/tag2"
@@ -53,8 +53,8 @@
                 android:layout_marginStart="32dp" />
 
             <ImageView
-                android:layout_width="90dp"
-                android:layout_height="90dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:rotation="180"
                 android:id="@+id/linkImage"
                 android:src="@drawable/link2"
@@ -156,7 +156,8 @@
             android:layout_height="match_parent"
             android:text="-2"
             android:id="@+id/runnersubTwo"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:visibility="gone"/>
 
         <Button
             style="?android:attr/buttonStyleSmall"
@@ -194,7 +195,8 @@
             android:layout_height="match_parent"
             android:text="+2"
             android:id="@+id/runneraddTwo"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:visibility="gone"/>
 
         <Button
             android:layout_width="0dp"
